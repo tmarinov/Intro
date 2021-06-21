@@ -1,0 +1,171 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Toma Marinov introduction</title>
+  <meta charset="utf-8" />
+  <style>
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+      font-size: 14px;
+      background-color: black;
+      color:chartreuse
+    }
+
+    
+    button {
+      padding: 4px 8px;
+      background: #0078d4;
+      color: #ffffff;
+    }
+
+    
+  </style>
+</head>
+<body style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px;">
+  <div id="warning">
+    <h1 style="font-weight:500;">Speech Recognition Speech SDK not found (microsoft.cognitiveservices.speech.sdk.bundle.js missing).</h1>    
+  </div>
+  
+  <div id="content" style="display:none">
+    <p id="header" style="color:white">Please, turn Sound On and click the button. For replaying, please refresh the page.<br />
+   <button id="startSpeakTextAsyncButton">Start Intro</button>
+   <p id="intro"></p>   
+  </div>
+  <div id="footer" style="display:none">
+    <p id="greetings"><h3 style="color:coral">Greetings from me and my family!</h3></p><br />
+    <img  src="./Family.jpg"></a><br />
+    <a href="http://www.linkedin.com/in/toma-marinov" style="color:white" target="_blank">LinkedIn profile</a><br />
+    <a href="http://www.facebook.com/toma.marinov.3" style="color:white" target="_blank">Facebook profile</a><br />
+    <a href="http://www.flickr.com/photos/23228097@N02/albums" style="color:white" target="_blank">My photos on Flickr</a>
+  </div>
+
+  <!-- Speech SDK reference sdk. -->
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+
+  <!-- Speech SDK USAGE -->
+  <script>
+    // status fields and start button in UI
+    var phraseDiv;
+    var resultDiv;
+    var startSpeakTextAsyncButton;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion;
+    var SpeechSDK;
+    var synthesizer;
+
+    var i = 0;
+    var speed = 60; /* The speed/duration of the effect in milliseconds */
+    objectName = ""; 
+    phraseDiv = "123.";
+    html = "";
+
+    function typeWriter() {
+        if (i < phraseDiv.length) {
+        if (phraseDiv.charAt(i) == "<")
+        {
+          document.getElementById(objectName).innerHTML += "<br />"
+          i += 6;
+        } else
+        {
+          document.getElementById(objectName).innerHTML += phraseDiv.charAt(i);
+          i++;
+        };
+        setTimeout(typeWriter, speed);
+      }      
+  }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      startSpeakTextAsyncButton = document.getElementById("startSpeakTextAsyncButton");
+      subscriptionKey = "ad25dff0da3a4d4db8087465a059f224";
+      serviceRegion = "westeurope";
+      
+      startSpeakTextAsyncButton.addEventListener("click", function () {
+        startSpeakTextAsyncButton.disabled = true;
+      
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+        speechConfig.speechSynthesisVoiceName = "Microsoft Server Speech Text to Speech Voice (en-US, GuyNeural)";
+        speechConfig.SpeechSynthesisLanguage = "en-US";
+
+       
+        // ****** Intro ********
+        phraseDiv = "Hello Everyone! Toma is here! This is my introduction! <br /> ";
+        phraseDiv += "It is created by using a simple html and javascript page with pre-defined text being printed at this moment on the screen and at the same time Microsoft Azure Cloud Speech Cognitive service is used for LIVE converting the same text to speech! <br />  ";
+        phraseDiv += "But let's begin: <br />  "; 
+        phraseDiv += "Name: Toma Marinov <br />  "; 
+        phraseDiv += "Age: 46 <br />  "; 
+        phraseDiv += "Nationality: Bulgarian <br />  "; 
+        phraseDiv += "Status: Married, with two children: 16 years old daughter and 11 years old son. We live togehter with our three and a half years old cocker spaniel. <br />  "; 
+        phraseDiv += "Professional background: For about 18 years I worked mostly as backend developer with Microsoft technology stack - .Net, .Net Core, APIs, Microsoft SQL Server. <br />  "; 
+        phraseDiv += "We came to The Netherlands in year 2008, when I started working for Europol as developer, then gradually moved to Senior Developer and Lead Developer. <br />  "; 
+        phraseDiv += "In year 2013 I participated in the implementation of Europol DevOps processes by using technologies like Team City Continous Integration Server, Powershell, Power CLI VMware. <br />  ";
+        phraseDiv += "Once my contract with Europol was over, in 2019 I started working for Sentia as Cloud engineer. There I am working on the migration of a number of customers systems from on-premises to Azure Cloud.  <br />  "; 
+        phraseDiv += "I have been working with various Azure Cloud resources like Virtual Machines, Networking, App Services, Azure Kubernetes as a Service, Storage service and others...  <br />"
+        phraseDiv += "I am Microsoft Certified as Azure Cloud DevOps Engineer Expert, Azure Cloud Developer Associate and Microsoft Certified Technology Specialist (MCTS) for .NET Framework 4, Web Applications. <br /> ";
+        phraseDiv += "Hobbies: books, (traveling + photography) => Travel Photography <br /> ";
+        phraseDiv += "I am very excited to be joining your team! <br /> ";
+        phraseDiv += "Thank you! <br /> ";
+
+
+
+        objectName = "intro"; 
+        typeWriter();  
+        var inputText = phraseDiv; 
+        
+        
+        var phraseDivSpeech =  "";
+        phraseDivSpeech = "Hello Everyone! Toma is here! This is my introduction! ";
+        phraseDivSpeech += "It is created by using a simple html and javascript page with pre-defined text being printed at this moment on the screen and at the same time Microsoft Azure Cloud Speech Cognitive service is used for LIVE converting the same text to speech! ";
+        phraseDivSpeech += "But let's begin: "; 
+        phraseDivSpeech += "Name: Toma Marinov, "; 
+        phraseDivSpeech += "Age: 46, "; 
+        phraseDivSpeech += "Nationality: Bulgarian, "; 
+        phraseDivSpeech += "Status: Married, with two children: sixteen years old daughter and eleven years old son. We live togehter with our three and a half years old cocker spaniel. "; 
+        phraseDivSpeech += "Professional background: For about eighteen years I worked mostly as backend developer with Microsoft technology stack - .Net, .Net Core, APIs, Microsoft SQL Server. "; 
+        phraseDivSpeech += "We came to The Netherlands in year 2008, when I started working for Europol as developer, then gradually moved to Senior and Lead Developer. "; 
+        phraseDivSpeech += "In year 2013 I participated in the implementation of Europol DevOps processes by using technologies like Team City Continous Integration Server, Powershell, Power CLI, VMware.  ";
+        phraseDivSpeech += "Once my contract with Europol was over, in 2019 I started working for Sentia as Cloud engineer. There I am working on the migration of a number of customers systems from on-premises to Azure Cloud.  "; 
+        phraseDivSpeech += "I have been working wit various Azure Cloud resources like Virtual Machines, Networking, App Services, Azure Kubernetes as a Service, Storage service and others...  "; 
+        phraseDivSpeech += "I am Microsoft Certified as Azure Cloud DevOps Engineer Expert, Azure Cloud Developer Associate and Microsoft Certified Technology Specialist (MCTS) for .NET Framework 4, Web Applications.";
+        phraseDivSpeech += "Hobbies: books, traveling plus photography logically ended up into Travel Photography. ";
+        phraseDivSpeech += "I am very excited to be joining your team!";
+        phraseDivSpeech += "Thank you!";
+
+
+        var inputText = phraseDivSpeech;
+        callSvc().result;
+              
+        function callSvc() {
+          synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig);
+          synthesizer.speakTextAsync(
+          inputText,
+          function (result) {
+            window.console.log(result);
+            synthesizer.close();
+            synthesizer = undefined;
+            document.getElementById('footer').style.display = 'block';
+            },
+          function (err) {
+            window.console.log(err);
+            synthesizer.close();
+            synthesizer = undefined;
+        });
+        }
+        
+      });
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+        startSpeakTextAsyncButton.disabled = false;
+        document.getElementById('content').style.display = 'block';
+        document.getElementById('warning').style.display = 'none';
+        
+      }
+    });
+  
+    
+
+  </script>
+</body>
+</html>
